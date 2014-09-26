@@ -1,0 +1,36 @@
+ppcctt
+------
+
+Pacemaker Protocol Client Complience Test Tool
+
+Summary
+-------
+
+This toolcommunicates with a Pacemacer client. It not only test the normal operation, but also corner cases. The test should be so intensive that a client that passes this test will not cause any problems when used with pacemaker hosts.
+
+Building and Starting
+---------------------
+
+An ant script(build.xml) is provided. With Ant installed building is just:
+
++$ ant+
+
+The complience test can be started like this:
+
++$ java -jar ClientComplienceTest.jar /dev/ttySUB0::115200:8:None:1:false:false:false:false+
+
+License
+-------
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License version 2
+as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, see <http://www.gnu.org/licenses/>
+
