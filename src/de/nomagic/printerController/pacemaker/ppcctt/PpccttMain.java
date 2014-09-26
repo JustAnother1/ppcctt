@@ -17,13 +17,9 @@ package de.nomagic.printerController.pacemaker.ppcctt;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 import org.slf4j.LoggerFactory;
 
