@@ -198,7 +198,7 @@ public class CommandLayerTest
         for(int i = 0; i < numSteppers; i++)
         {
             // 0 is not allowed
-            tlt.send_byte_U32(Protocol.ORDER_ACTIVATE_STEPPER_CONTROL, i +1, 0);
+            tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 0);
             byte[] response = tlt.getFrame();
             if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0)) // TODO
             {
@@ -208,7 +208,7 @@ public class CommandLayerTest
             tlt.IncrementSequenceCounter();
 
             // 17 millions is probably too much
-            tlt.send_byte_U32(Protocol.ORDER_ACTIVATE_STEPPER_CONTROL, i +1, 17000000);// TODO
+            tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 17000000);// TODO
             response = tlt.getFrame();
             if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0))
             {
@@ -218,7 +218,7 @@ public class CommandLayerTest
             tlt.IncrementSequenceCounter();
 
             // 39000 should be ok.
-            tlt.send_byte_U32(Protocol.ORDER_ACTIVATE_STEPPER_CONTROL, i +1, 39000);
+            tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 39000);
             response = tlt.getFrame();
             if(false == tlt.checkReply(response, Protocol.RESPONSE_OK, 0))
             {
