@@ -252,20 +252,27 @@ public class Protocol
             }
 
         case RESPONSE_GENERIC_APPLICATION_ERROR:
+            String res;
             switch(buf[offset])
             {
-            case RESPONSE_UNKNOWN_ORDER: return "(unknown order)";
-            case RESPONSE_BAD_PARAMETER_FORMAT: return "(bad parameter format)";
-            case RESPONSE_BAD_PARAMETER_VALUE: return "(bad parameter value)";
-            case RESPONSE_INVALID_DEVICE_TYPE: return "(invalid device type)";
-            case RESPONSE_INVALID_DEVICE_NUMBER: return "(invalid device number)";
-            case RESPONSE_INCORRECT_MODE: return "(wrong mode)";
-            case RESPONSE_BUSY: return "(busy)";
-            case RESPONSE_FAILED: return "(failed)";
-            case RESPONSE_FIRMWARE_ERROR: return "(firmware error)";
-            case RESPONSE_CANNOT_ACTIVATE_DEVICE: return "(device unavailable)";
-            default: return "(Invalid : " + Tool.fromByteBufferToHexString(buf, length, offset) + ")";
+            case RESPONSE_UNKNOWN_ORDER: res = "(unknown order)"; break;
+            case RESPONSE_BAD_PARAMETER_FORMAT: res = "(bad parameter format)"; break;
+            case RESPONSE_BAD_PARAMETER_VALUE: res = "(bad parameter value)"; break;
+            case RESPONSE_INVALID_DEVICE_TYPE: res = "(invalid device type)"; break;
+            case RESPONSE_INVALID_DEVICE_NUMBER: res = "(invalid device number)"; break;
+            case RESPONSE_INCORRECT_MODE: res = "(wrong mode)"; break;
+            case RESPONSE_BUSY: res = "(busy)"; break;
+            case RESPONSE_FAILED: res = "(failed)"; break;
+            case RESPONSE_FIRMWARE_ERROR: res = "(firmware error)"; break;
+            case RESPONSE_CANNOT_ACTIVATE_DEVICE: res = "(device unavailable)"; break;
+            default: res = "(Invalid : " + Tool.fromByteBufferToHexString(buf, length, offset) + ")"; break;
             }
+            if(length > 1)
+            {
+                // a UTF-8 String follows
+                res = res + " " + Tool.fromByteBufferToUtf8String(buf, length - 1, offset + 1);
+            }
+            return res;
 
         case RESPONSE_DEBUG_FRAME_DEBUG_MESSAGE:
             return Tool.fromByteBufferToUtf8String(buf, length, offset);
