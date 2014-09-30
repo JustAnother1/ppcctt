@@ -195,12 +195,13 @@ public class CommandLayerTest
         log.debug("Startiing Test: Configure Axis Movement Rates");
         int numSteppers = dutInfo.getNumberOfDevices(Protocol.DEVICE_TYPE_STEPPER);
         // with all the steppers
+        byte[]  response;
         for(int i = 0; i < numSteppers; i++)
         {
             // 0 is not allowed
             tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 0);
-            byte[] response = tlt.getFrame();
-            if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0)) // TODO
+            response = tlt.getFrame();
+            if(false == tlt.checkReply(response, Protocol.RESPONSE_GENERIC_APPLICATION_ERROR, 1))
             {
                 success = false;
                 return;
@@ -208,9 +209,9 @@ public class CommandLayerTest
             tlt.IncrementSequenceCounter();
 
             // 17 millions is probably too much
-            tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 17000000);// TODO
+            tlt.send_byte_U32(Protocol.ORDER_CONFIGURE_AXIS_MOVEMENT_RATES, i +1, 17000000);
             response = tlt.getFrame();
-            if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0))
+            if(false == tlt.checkReply(response, Protocol.RESPONSE_GENERIC_APPLICATION_ERROR, 1))
             {
                 success = false;
                 return;
@@ -229,9 +230,18 @@ public class CommandLayerTest
         }
     }
 
-    private byte[] getParameterForUnderrunAvoidance(int StepperNumber, long maxMoveRate, long maxAccelleration)
+    private byte[] getParameterForUnderrunAvoidance(int StepperIndex, long maxMoveRate, long maxAccelleration)
     {
         byte[] res = new byte[9];
+        res[0] = (byte)(0xff &  (StepperIndex + 1));
+        res[1] = (byte)(0xff & (maxMoveRate>>24));
+        res[2] = (byte)(0xff & (maxMoveRate>>16));
+        res[3] = (byte)(0xff & (maxMoveRate>>8));
+        res[4] = (byte)(0xff & (maxMoveRate));
+        res[5] = (byte)(0xff & (maxAccelleration>>24));
+        res[6] = (byte)(0xff & (maxAccelleration>>16));
+        res[7] = (byte)(0xff & (maxAccelleration>>8));
+        res[8] = (byte)(0xff & (maxAccelleration));
         return res;
     }
 
@@ -246,7 +256,12 @@ public class CommandLayerTest
             tlt.send(Protocol.ORDER_CONFIGURE_MOVEMENT_UNDERRUN_AVOIDANCE_PARAMETERS,
                      getParameterForUnderrunAvoidance(i, 0, 0));
             byte[] response = tlt.getFrame();
-            if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0)) // TODO
+            if(false == tlt.checkReply(response, Protocol.RESPONSE_GENERIC_APPLICATION_ERROR, 1)) // TODO
+            {
+                success = false;
+                return;
+            }
+            if(Protocol.RESPONSE_BAD_PARAMETER_VALUE != response[1])
             {
                 success = false;
                 return;
@@ -257,7 +272,12 @@ public class CommandLayerTest
             tlt.send(Protocol.ORDER_CONFIGURE_MOVEMENT_UNDERRUN_AVOIDANCE_PARAMETERS,
                     getParameterForUnderrunAvoidance(i, 170000000, 0));
             response = tlt.getFrame();
-            if(true == tlt.checkReply(response, Protocol.RESPONSE_OK, 0))
+            if(false == tlt.checkReply(response, Protocol.RESPONSE_GENERIC_APPLICATION_ERROR, 1))
+            {
+                success = false;
+                return;
+            }
+            if(Protocol.RESPONSE_BAD_PARAMETER_VALUE != response[1])
             {
                 success = false;
                 return;

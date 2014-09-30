@@ -107,6 +107,8 @@ public class Protocol
     public static final byte MOVEMENT_BLOCK_TYPE_DELAY               = 0x02;
     public static final byte MOVEMENT_BLOCK_TYPE_BASIC_LINEAR_MOVE   = 0x03;
     public static final byte MOVEMENT_BLOCK_TYPE_SET_ACTIVE_TOOLHEAD = 0x04;
+    // End speed of last move was 0 and it was a Move and not a print -> stopping after this is OK
+    public static final byte MOVEMENT_BLOCK_TYPE_MOVEMENT_CHECKPOINT = 0x05;
 
 // Client
     public static final int START_OF_CLIENT_FRAME = 0x42;
