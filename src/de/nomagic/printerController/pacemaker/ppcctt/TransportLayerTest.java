@@ -185,7 +185,18 @@ public class TransportLayerTest
         }
         if(response[0] != expectedReplyCode)
         {
-            log.error("Reply has wrong Reply Code ({})!", response[0]);
+        	String repDescr;
+        	switch(response[0])
+        	{
+        	case 0x10: repDescr = "OK"; break;
+        	case 0x11: repDescr = "Generic Application Error"; break;
+        	case 0x12: repDescr = "Stopped"; break;
+        	case 0x13: repDescr = "Order Specific Error"; break;
+        	default:
+        		repDescr = "" +  response[0];
+        		break;
+        	}
+        	log.error("Reply has wrong Reply Code ({})!", repDescr);
             return false;
         }
         return true;

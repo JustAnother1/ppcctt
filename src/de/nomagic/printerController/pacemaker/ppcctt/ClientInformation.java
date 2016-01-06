@@ -51,7 +51,7 @@ public class ClientInformation
     public String toString()
     {
         StringBuffer res = new StringBuffer();
-        res.append("Client at" + ConnectionDefinition
+        res.append("Client at " + ConnectionDefinition
                  + "\nis " + FirmwareName + "\n");
         res.append("Serial Number        : " + SerialNumber + "\n");
         res.append("Hardware             : " + HardwareName + "\n");
@@ -83,10 +83,35 @@ public class ClientInformation
                 break;
             }
         }
-        res.append("Firmware Type        : " + FirmwareType + "\n"); //TODO add name of Type
+        switch(FirmwareType)
+        {
+        case 0:
+        	res.append("Firmware Type        : pmc\n");
+        	break;
+
+        case 1:
+        	res.append("Firmware Type        : Minnow\n");
+        	break;
+
+        default:
+        	res.append("Firmware Type        : " + FirmwareType + "\n");
+        	break;
+        }
         res.append("Firmware Version     : " + FirmwareVersionMajor + "." + FirmwareVersionMinor + "\n");
         res.append("Protocol Version     : " + ProtocolVersionMajor + "." + ProtocolVersionMinor + "\n");
-        res.append("Hardware Type        : " + HardwareType + "\n"); //TODO add name of Type
+        switch(HardwareType)
+        {
+        case 0:
+        	res.append("Hardware Type        : pipy\n");
+        	break;
+
+        case 1:
+        	res.append("Hardware Type        : AVR (Arduino,..)\n");
+        	break;
+
+        default:
+            res.append("Hardware Type        : " + HardwareType + "\n");
+        }
         res.append("Hardware Revision    : " + HardwareRevision + "\n");
         res.append("Step Rate max.       : " + maxStepRate + " Steps/sec\n");
         res.append("Host Timeout         : " + hostTimeout + " sec\n");
