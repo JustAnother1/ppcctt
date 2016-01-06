@@ -1,12 +1,12 @@
 ppcctt
 ------
 
-Pacemaker Protocol Client Complience Test Tool
+Pacemaker Protocol Client Compliance Test Tool
 
 Summary
 -------
 
-This toolcommunicates with a Pacemacer client. It not only test the normal operation, but also corner cases. The test should be so intensive that a client that passes this test will not cause any problems when used with pacemaker hosts.
+This tool communicates with a Pacemaker client. It not only test the normal operation, but also corner cases. The test should be so intensive that a client that passes this test will not cause any problems when used with pacemaker hosts.
 
 Building and Starting
 ---------------------
@@ -15,7 +15,7 @@ An ant script(build.xml) is provided. With Ant installed building is just:
 
 +$ ant+
 
-The complience test can be started like this:
+The compliance test can be started like this:
 
 ------------------------------------------------------------------------------------------------------------------
 $ java -jar ClientComplienceTest.jar /dev/ttyUSB0::115200:8:None:1:false:false:false:false+
