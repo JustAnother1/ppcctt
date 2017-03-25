@@ -18,7 +18,7 @@ An ant script(build.xml) is provided. With Ant installed building is just:
 The compliance test can be started like this:
 
 ------------------------------------------------------------------------------------------------------------------
-$ java -jar ClientComplienceTest.jar /dev/ttyUSB0::115200:8:None:1:false:false:false:false+
+$ java -jar ClientComplienceTest.jar /dev/ttyUSB0:115200:8:None:1:false:false:false:false+
 ------------------------------------------------------------------------------------------------------------------
 
 License
